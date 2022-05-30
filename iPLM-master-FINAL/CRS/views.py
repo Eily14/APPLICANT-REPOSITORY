@@ -2253,8 +2253,8 @@ def applicant(request):
 
 
 #--------------------------- FACULTY APPLICANT VIEWS --------------------------
-def applicant_facultyapplicationform(request):
-    return render(request, './applicant/applicant_facultyapplicationform.html')
+def applicant_facultyapplicationform_workexpsheet(request):
+    return render(request,'./applicant_facultyapplicationform_workexpsheet.html')
 
 def applicant_successfullysubmitted(request):
     return render(request, './applicant/applicant_successfullysubmitted.html')
@@ -2266,39 +2266,67 @@ def faculty_applicant(request):
     return render(request, './applicant/faculty_applicant.html')
 
 def faculty_applicant_form(request):
-    if (request.method == 'POST'):
-        try:
-            firstName = request.POST['firstName']
-            lastName = request.POST['lastName']
-            middleName = request.POST['middleName']
-            email = request.POST['email']
-            phoneNumber = request.POST['phoneNumber']
-            sex = request.POST['sex']
-            department = request.POST['department']
-            time = request.POST['time']
-            CV = request.FILES['CV']
-            certificates = request.FILES.get('certificates')
-            credentials = request.FILES.get('credentials')
-            TOR = request.FILES['TOR']
-            PDS = request.FILES['PDS']
-            facultyApplicantInfo = FacultyApplicant(firstName=firstName,lastName=lastName,middleName=middleName,email=email,phoneNumber=phoneNumber,sex=sex,department=department,time=time,CV=CV, certificates=certificates, credentials=credentials, TOR=TOR, PDS=PDS)
-            facultyApplicantInfo.save()
-            return redirect('faculty_applicant_form_submitted')
-        except:
-            messages.error(request,'Fill everything on the form!')
-            return render(request,'./applicant/faculty_applicant_form.html')
-    return render(request, './applicant/faculty_applicant_form.html')
+    return render(request, './faculty_applicant_form.html')
     
 def faculty_applicant_form_submitted(request):
     return render(request,'./applicant/faculty_applicant_form_submitted.html')
+def applicant_facultyapplicationform_workexpsheet_submitted(request):
+
+    return render(request,'./applicant_facultyapplicationform_workexpsheet_submitted.html')
+
+def applicant_facultyapplicationform(request):
+    return render(request,'./applicant_facultyapplicationform.html')
+
+def applicant_facultyapplicationform(request):
+    if (request.method == 'POST'):
+        try:
+            firstName = request.POS.getT['firstName']
+            lastName = request.POST.get['lastName']
+            middleName = request.POST.get['middleName']
+            email = request.POST.get['email']
+            phoneNumber = request.POST.get['phoneNumber']
+            sex = request.POST.get['sex']
+            department = request.POST.get['department']
+            time = request.POST.get['time']
+            CV = request.FILES.get['CV']
+            certificates = request.FILES.get('certificates')
+            credentials = request.FILES.get('credentials')
+            TOR = request.FILES.get['TOR']
+            PDS = request.FILES.get['PDS']
+            facultyApplicantInfo = FacultyApplicant(firstName=firstName,lastName=lastName,middleName=middleName,email=email,phoneNumber=phoneNumber,sex=sex,department=department,time=time,CV=CV, certificates=certificates, credentials=credentials,TOR=TOR,PDS=PDS)
+            facultyApplicantInfo.save()
+            return redirect('applicant_facultyapplicationform_workexpsheet')
+        except:
+            messages.error(request, 'You have already submitted an application')
+            return render(request,'./applicant/applicant_facultyapplicationform.html')
+    return render(request, './applicant/applicant_facultyapplicationform.html')
 
 
 #--------------------WORK EXPERIENCE SHEET --------------------------
+
+
 def applicant_facultyapplicationform_workexpsheet(request):
+    if (request.method == 'POST'):
+        try:
+            durationwork = request.POST.get['durationwork']
+            positionwork = request.POST.get['postitionwork']
+            officeunit = request.POST.get['officeunit']
+            agencyorg = rquest.POST.get['agencyorg']
+            accomplishments = request.FILES.get('accomplishments')
+            summaryduties = request.FILES.get['summaryduties']
+
+            facultyApplicantInfo = FacultyApplicant(durationwork=durationwork, positionwork=positionwork,
+                                                       officeunit=officeunit, agencyorg=agencyorg,
+                                                       accomplishments=accomplishments, summaryduties=summaryduties)
+            facultyApplicantInfo.save()
+            return redirect('applicant/applicant_facultyapplicationform_workexpsheet')
+
+        except:
+            messages.error(request, 'Fill everything on the form!')
+            return render(request, './applicant/applicant_facultyapplicationform_workexpsheet.html')
     return render(request, './applicant/applicant_facultyapplicationform_workexpsheet.html')
 
-def applicant_facultyapplicationform_workexpsheet_submitted(request):
-    return render(request,'./applicant/faculty_applicant_form_submitted.html')
+
     
 # ------------------- STUDENT APPLICANT VIEWS -------------------------------
 def student_applicant(request):

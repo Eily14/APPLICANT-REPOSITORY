@@ -14,6 +14,12 @@ function checkforblank() {
     if (document.getElementById('Phone').value == "") {
         errormessage += "Enter Your Phone Number \n";
         }
+     if (document.getElementById('Sex').value == "") {
+        errormessage += "Enter Your Sex \n";
+        }
+    if (document.getElementById('Time').value == "") {
+        errormessage += "Enter Your AVailability Time \n";
+        }
     if (document.getElementById('CVFile').value == "") {
         errormessage += "Upload your CV File \n";
         }
@@ -26,6 +32,10 @@ function checkforblank() {
     if (document.getElementById('TORFile').value == "") {
         errormessage += "Upload your TOR \n";
         }
+
+    if (document.getElementById('PDSFile').value == "") {
+            errormessage += "Upload your PDS\n";
+            }
     if (errormessage != "") {
         alert(errormessage);
         return false;

@@ -135,6 +135,49 @@
 		left: 280px;
 	}
 
+	#PDSShape
+	{
+		border: 1px solid #0C66CC;
+		background: #0C66CC;
+		font-size: 14px;
+		font-family: Nunito;
+		margin-right: 10px;
+		color: white;
+		border-radius: 10px;
+		height: 40px;
+		width: 210px;
+		display: flex;
+		align-items: center;
+		justify-content: left;
+		position:absolute;
+		filter:drop-shadow(1px 1px 3px gray);
+	}
+	
+	#PDSShape
+	{
+	    top: 768px;
+		left: 80px;
+	}
+
+	#PDSFile
+	{
+	    top: 768px;
+	    left: 320px;
+	}
+	#PDSFile
+	{
+		font-family: Nunito;
+		font-size:14px;
+		background: white;
+		filter:drop-shadow(0px 0px 10px rgb(211,211,211));
+		border-radius:10px;
+		height: 40px;
+		width: 210px;
+		outline: none;
+		position:absolute;
+		margin-left: 20px;
+	}
+
 	#subDepartment
 	{
 		font-size: 12px;
@@ -182,7 +225,6 @@
 
 
 </head>
-
 <body>
 	<div id="backbutton"><a href="{% url 'applicantrequirements' %}"> <!--templates/Applicants/Faculty--><img src="{% static 'CRS/images/Applicants/Faculty/back.png' %}" alt="iplm" width="35px" height="35px"></a></div>
     
@@ -192,7 +234,7 @@
 	<p id="FAFSub">Please complete the form below to be admitted in our department.</p> 
 
 	<p id="FullNametext">Full Name<span style="color:#ff0000"><b>*</b></span></p>
-		<form method ="POST" enctype="multipart/form-data" onsubmit ="return checkforblank()">
+		<form method ="POST" action="" enctype="multipart/form-data" onsubmit ="return checkforblank()">
 			{%csrf_token%}
             <!--last name-->
 			<input type="text" id="LastName" name="lastName" placeholder="Dela Cruz">
@@ -215,20 +257,20 @@
 			<p id="subPhone">Phone Number</p>
 
 			<select id="Sex">
-				<option value="Male">Male</option>
-				<option value="Female">Female</option>
+				<option value="Male" name="sex">Male</option>
+				<option value="Female" name="sex">Female</option>
 			</select>
 			<p id="subSex">Sex</p>
 
 	<p id="DepartmentInformationText">Department to Apply <span style="color:#ff0000"><b>*</b></span></p>            <!--email address-->
-			<select id="department" name="department">
-				<option value="BSIT">BSIT</option>
-				<option value="BSEE">BSEE</option>
+			<select id="department">
+				<option value="BSIT" name="department">BSIT</option>
+				<option value="BSEE" name="department">BSEE</option>
 			</select>
 			<p id="subDepartment">Department</p>
 
 	<p id="AvailabilityTimeText">Availability Time <span style="color:#ff0000"><b>*</b></span></p>
-			<input type="text" id="Time" name="Time" placeholder="12:00AM-12:00PM">
+			<input type="text" id="Time" name="time" placeholder="12:00AM-12:00PM">
 			<p id="subTime">Time</p>
 
 
@@ -252,15 +294,15 @@
 
 
      <!--Choose file-->       
-	<input type="file" id="CVFile" name="CV" mr-4>
+	<input type="file" id="CVFile" name="CV" mr-4 accept=".pdf">
             
-	<input type="file" id="CertificateFile" name="certificates" multiple>
+	<input type="file" id="CertificateFile" name="certificates" multiple accept=".pdf">
             
-	<input type="file" id="CredentialsFile" name="credentials">
+	<input type="file" id="CredentialsFile" name="credentials" accept=".pdf">
             
-	<input type="file" id="TORFile" name="TOR">
+	<input type="file" id="TORFile" name="TOR" accept=".pdf">
 
-	<input type="file" id="PDSFile" name="PDS">
+	<input type="file" id="PDSFile" name="PDS" accept=".pdf">
 
 
 	{% if messages %}
@@ -272,12 +314,55 @@
 	
 	
 	<picture><a><p id="imageForm"><img src="{% static 'CRS/images/Applicants/Faculty/clip-1712.png' %}" alt="iplm" width="290px" height="230px"></a></p></picture>
-
-</form> </div>
 	<a href="{% url 'applicant_facultyapplicationform_workexpsheet' %}"> <button id="submitbutton"> <!--templates/Applicants/Faculty--> Next </button></a>
 
+</form> </div>
+	
 
+<script>
+	function checkforblank() {
+	var errormessage = "";
 
+if (document.getElementById('LastName').value == "") {
+	errormessage += "Enter Your Last Name \n";
+	}
+if (document.getElementById('FirstName').value == "") {
+	errormessage += "Enter Your First Name \n";
+	}
+if (document.getElementById('EmailAddress').value == "") {
+	errormessage += "Enter Your Email Address \n";
+	}
+if (document.getElementById('Phone').value == "") {
+	errormessage += "Enter Your Phone Number \n";
+	}
+ if (document.getElementById('Sex').value == "") {
+	errormessage += "Enter Your Sex \n";
+	}
+if (document.getElementById('Time').value == "") {
+	errormessage += "Enter Your AVailability Time \n";
+	}
+if (document.getElementById('CVFile').value == "") {
+	errormessage += "Upload your CV File \n";
+	}
+if (document.getElementById('CertificateFile').value == "") {
+	errormessage += "Upload your Certicates File \n";
+	}
+if (document.getElementById('CredentialsFile').value == "") {
+	errormessage += "Upload your Credentials \n";
+	}
+if (document.getElementById('TORFile').value == "") {
+	errormessage += "Upload your TOR \n";
+	}
+
+if (document.getElementById('PDSFile').value == "") {
+		errormessage += "Upload your PDS\n";
+		}
+if (errormessage != "") {
+	alert(errormessage);
+	return false;
+	}
+}
+</script>
 <!-- tether, jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

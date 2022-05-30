@@ -709,12 +709,6 @@ class FacultyApplicant(models.Model):
     PDS = models.FileField(upload_to='facultyApplicant/', blank=True, null=True)
     remarks = models.CharField(max_length=150, default='Submitted', verbose_name='Status')
 
-    class Meta:
-        verbose_name_plural = "Faculty Applicants"
-
-    def __str__(self):
-        return self.email
-
 #----------------------------WORK EXPERIENCE SHEET-------------------------------------------------
 
     durationwork = models.CharField(max_length=100, verbose_name="Durationwork", null=True)
@@ -723,6 +717,14 @@ class FacultyApplicant(models.Model):
     agencyorg = models.CharField(max_length=100, verbose_name="agency", null=True)
     accomplishments = models.FileField(upload_to='facultyApplicant/', blank=True, null=True)
     summaryduties = models.FileField(upload_to='facultyApplicant/', blank=True, null=True)
+    
+    class Meta:
+        verbose_name_plural = "Faculty Applicants"
+
+    def __str__(self):
+        return self.email
+
+
 
 # ---------------------------Saving and Creating Users----------------- ---------------------------
 @receiver(post_save, sender=User)
